@@ -1,0 +1,51 @@
+.hero-portrait {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 420px);
+  margin-inline: auto;
+  padding: 18px;
+}
+
+.hero-portrait::before {
+  content: '';
+  position: absolute;
+  inset: 7%;
+  z-index: -1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgb(var(--brand-rgb) / 0.28), rgb(var(--brand-2-rgb) / 0.22));
+  filter: blur(42px);
+}
+
+.hero-portrait__frame {
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgb(var(--brand-rgb)), rgb(var(--brand-2-rgb)));
+  box-shadow: 0 0 0 10px rgb(var(--panel-rgb) / 0.55), 0 24px 60px rgb(0 0 0 / 0.35);
+}
+
+.hero-portrait__crop {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 6px solid rgb(var(--base-rgb));
+  border-radius: 50%;
+  background: rgb(var(--panel-rgb));
+}
+
+.hero-portrait__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-portrait__initials {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: rgb(var(--ink-rgb));
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+}

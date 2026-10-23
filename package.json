@@ -1,0 +1,40 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "typecheck": "tsc --noEmit",
+        "test:browser": "node tests/Browser/portfolio.cjs",
+        "test:slideshow": "node tests/Browser/about-slideshow.cjs"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0",
+        "concurrently": "^10.0.3",
+        "laravel-vite-plugin": "^3.1",
+        "tailwindcss": "^4.0.0",
+        "vite": "^8.0.0",
+        "@vitejs/plugin-react": "^6.0.0",
+        "typescript": "^5.9.3",
+        "@types/react": "^18.3.0",
+        "@types/react-dom": "^18.3.0",
+        "playwright-core": "^1.58.0",
+        "pngjs": "^7.0.0",
+        "pixelmatch": "^7.1.0"
+    },
+    "optionalDependencies": {
+        "@laravel/multiplex": "^0.4.1"
+    },
+    "dependencies": {
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-router-dom": "6.30.2",
+        "lucide-react": "0.577.0",
+        "framer-motion": "11.18.2",
+        "@radix-ui/react-icons": "1.3.2",
+        "date-fns": "4.1.0",
+        "tailwind-merge": "2.6.1",
+        "react-icons": "5.4.0"
+    }
+}

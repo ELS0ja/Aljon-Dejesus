@@ -1,0 +1,116 @@
+/* --- MANAGED FONT IMPORTS START (do not edit manually) --- */
+/* INTERNAL USE NAME: Heading */
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* INTERNAL USE NAME: Mono */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* --- MANAGED FONT IMPORTS END --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+@custom-variant dark (&:is(.dark *));
+/* Portfolio theme tokens — adjust these to re-theme the whole site */
+:root {
+  --base-rgb: 11 15 25;        /* #0B0F19 primary background */
+  --surface-rgb: 17 24 39;     /* #111827 secondary background */
+  --panel-rgb: 21 28 44;       /* #151C2C card background */
+  --brand-rgb: 96 165 250;     /* #60A5FA primary accent */
+  --brand-2-rgb: 167 139 250;  /* #A78BFA secondary accent */
+  --ink-rgb: 248 250 252;      /* #F8FAFC main text */
+  --subtle-rgb: 148 163 184;   /* #94A3B8 muted text */
+  --line-rgb: 39 52 73;        /* #273449 borders */
+  --success-rgb: 52 211 153;   /* #34D399 */
+  --danger-rgb: 248 113 113;   /* #F87171 */
+  --background: #0b0f19;
+  --foreground: #f8fafc;
+  --card: #151c2c;
+  --card-foreground: #f8fafc;
+  --popover: #151c2c;
+  --popover-foreground: #f8fafc;
+  --primary: #60a5fa;
+  --primary-foreground: #0b0f19;
+  --secondary: #1b2436;
+  --secondary-foreground: #f8fafc;
+  --muted: #111827;
+  --muted-foreground: #94a3b8;
+  --accent: #1b2436;
+  --accent-foreground: #f8fafc;
+  --destructive: #f87171;
+  --destructive-foreground: #f87171;
+  --border: #273449;
+  --input: #273449;
+  --ring: #60a5fa;
+  --chart-1: #60a5fa;
+  --chart-2: #a78bfa;
+  --chart-3: #34d399;
+  --chart-4: #f59e0b;
+  --chart-5: #f87171;
+  --radius: 0.75rem;
+  --sidebar: #111827;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #60a5fa;
+  --sidebar-primary-foreground: #0b0f19;
+  --sidebar-accent: #1b2436;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #273449;
+  --sidebar-ring: #60a5fa;
+  color-scheme: dark;
+}
+@layer base {
+  * {
+    @apply border-border outline-ring;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand-rgb));
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: rgb(var(--brand-rgb) / 0.3);
+  }
+}
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(var(--subtle-rgb) / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--subtle-rgb) / 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 35%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 35%, transparent 80%);
+}
+.text-gradient {
+  background: linear-gradient(90deg, rgb(var(--brand-rgb)), rgb(var(--brand-2-rgb)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes grid-drift {
+  to { background-position: 48px 48px; }
+}
+.animate-grid { animation: grid-drift 14s linear infinite; }
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(1.06); }
+}
+.animate-glow { animation: glow-pulse 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
