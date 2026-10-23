@@ -29,3 +29,4 @@ Thumbs.db
 /storage/framework/tmp
 /storage/app/visual-qa
 /artifacts
+/.vercel

@@ -150,6 +150,30 @@ node tests/Browser/contact.cjs
 
 Open `storage/app/visual-qa/index.html` for the offline comparison gallery. See [the reference inventory](docs/REFERENCE.md) and [verification report](docs/VERIFICATION.md) for matched viewport sizes, results, intentional behavior fixes, and limits. Passing backend tests alone is not treated as visual verification.
 
+## Vercel deployment
+
+The repository includes `vercel.json` and `api/index.php` for the `vercel-php@0.9.0` community runtime (PHP 8.5). The frontend builds with Vite and static assets are served from `public`. Laravel handles page rendering, contact submissions, and CV downloads. Temporary view and framework caches use Vercel's writable temporary directory. Contact records, sessions, and rate limits use the hosted database.
+
+1. Sign in at [Vercel](https://vercel.com/new) with GitHub and import `ELS0ja/Aljon-Dejesus`.
+2. Set **Project Name** to `aljon-dejesus`, **Framework Preset** to **Other**, and keep the repository root as the root directory. `vercel.json` supplies the install command, build command, and `public` output directory.
+3. Connect an online database. For a new PostgreSQL database, use the project's **Storage** area to add [Neon](https://vercel.com/marketplace/neon/neon) on its Free plan, in Singapore if available. The integration supplies `DATABASE_URL`, which this application accepts for PostgreSQL. Enable the integration for Production and for any Preview environment you deploy; use separate preview branches/databases when available.
+4. Add these in **Settings → Environment Variables** for the deployment environment:
+
+   | Variable | Value |
+   | --- | --- |
+   | `APP_KEY` | Generate a new production key locally with `php artisan key:generate --show`, then paste it into Vercel. This command prints a key without changing your local `.env`. |
+   | `DB_CONNECTION` | `pgsql` when using Neon |
+   | `DB_SSLMODE` | `require` when using Neon |
+   | `DATABASE_URL` | Added by the Neon integration; otherwise copy the PostgreSQL connection URL into this variable or `DB_URL`. |
+
+   For an existing hosted MySQL database, set `DB_CONNECTION=mysql` and its `DB_URL`, or `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD`. Configure the database provider's required TLS settings. Do not use `localhost`, Laragon's database, or an on-function SQLite file. Keep database credentials and the production `APP_KEY` in Vercel, not in Git or chat. The public production defaults (debug disabled, secure cookies, database sessions/cache, stderr logging, and synchronous queue handling) are in `vercel.json`.
+5. Deploy or redeploy after connecting the database and saving the environment variables. The community runtime runs Composer's `vercel` script: it verifies configuration, discovers packages, applies migrations, and inserts only missing example-project slugs. Configuration errors stop the build instead of deploying an application with an ephemeral database. Existing project records are preserved.
+6. In **Settings → Domains**, confirm `aljon-dejesus.vercel.app` is assigned to Production. This exact address depends on its availability; the configuration does not reserve it. Test the page, photo slideshow, asset URLs, and a real contact submission after Vercel reports the deployment Ready.
+
+No remote Vercel build or live URL is implied by local checks. Vercel account access, a configured hosted database, and a successful remote deployment are required. The original migration's screenshot comparison suite describes an older page; current frontend changes are documented above.
+
+Run `node tests/Browser/vercel.cjs` to exercise the actual PHP entrypoint locally with a temporary database. It checks rendering, forwarded HTTPS, secure cookies, contact persistence and replay handling, CV/health routes, and temporary view compilation. It does not use your Laragon database or prove a remote Vercel build has succeeded.
+
 ## Production deployment
 
 Use a host supporting PHP 8.3+, Composer, and MySQL. Set the web root to `public/`. Install production dependencies with `composer install --no-dev --optimize-autoloader --no-interaction`. Build frontend assets using `npm.cmd ci --ignore-scripts` and `npm.cmd run build` locally or in CI, then deploy `public/build` and `public/fonts` with the source. Installed Node packages are unnecessary at runtime.

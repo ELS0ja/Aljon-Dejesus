@@ -14,7 +14,7 @@ $rootFiles = [
     '.editorconfig', '.env.example', '.gitattributes', '.gitignore', '.npmrc',
     'AGENTS.md', 'CLAUDE.md', 'README.md', 'artisan', 'boost.json',
     'composer.json', 'composer.lock', 'package.json', 'package-lock.json',
-    'phpunit.xml', 'tsconfig.json', 'vite.config.js',
+    'phpunit.xml', 'tsconfig.json', 'vite.config.js', 'vercel.json', '.vercelignore',
 ];
 $entries = [];
 foreach ($rootFiles as $file) {
@@ -24,7 +24,7 @@ foreach ($rootFiles as $file) {
     }
 }
 
-foreach (['.agents', 'app', 'bootstrap', 'config', 'database', 'docs', 'public', 'resources', 'routes', 'storage', 'tests'] as $directory) {
+foreach (['.agents', 'api', 'app', 'bootstrap', 'config', 'database', 'docs', 'public', 'resources', 'routes', 'storage', 'tests'] as $directory) {
     $iterator = new RecursiveCallbackFilterIterator(
         new RecursiveDirectoryIterator($root.'/'.$directory, FilesystemIterator::SKIP_DOTS),
         function (SplFileInfo $file) use ($root): bool {

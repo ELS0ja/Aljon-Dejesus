@@ -77,6 +77,14 @@ Neither capture has a detected difference at the documented perceptual threshold
 
 ## Packaging and installation
 
+### Vercel preparation
+
+The repository now includes a Vercel configuration and PHP function entrypoint using the pinned community runtime `vercel-php@0.9.0`. The deployment hook verifies the application key, disables debug output, requires a hosted MySQL/MariaDB/PostgreSQL database, and then runs migrations and the non-destructive project seeder. PostgreSQL accepts the `DATABASE_URL` supplied by a native Neon integration. Production sessions, cache locks, rate limits, and received messages use the hosted database; compiled views and framework manifests use the temporary filesystem. Vercel proxy handling trusts forwarded protocol, port, and client IP without trusting a forwarded hostname.
+
+The Laravel suite passed with **34 tests and 115 assertions**, including the deployment preflight and proxy checks. TypeScript checking, the frontend build, Composer validation, Pint, and the local `node tests/Browser/vercel.cjs` entrypoint integration check passed. The integration check uses an isolated SQLite fixture to exercise HTTP rendering, secure sessions, contact persistence/replay behavior, CV/health routes, and temporary view compilation. Actual deployment configuration rejects SQLite.
+
+At preparation time Vercel access and a hosted database had not been connected, so no remote deployment, hosted PostgreSQL/MySQL connection, domain availability, or live site was verified. The target `aljon-dejesus.vercel.app` is requested, not reserved. Follow the Vercel section of the README to finish account/database setup and verify the actual deployment.
+
 The sanitized ZIP includes source, dependency lockfiles, `.env.example`, migrations, seed data, tests, built assets, original font files and licenses, documentation, screenshots, and the offline gallery. It excludes `.env`, installed dependencies, received messages, local databases, logs, caches, private CVs, and temporary QA installations.
 
 Recreate it with `php tests/Package/build.php`. `artifacts/manifest.json` records its file list and SHA-256 digest.
